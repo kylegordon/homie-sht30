@@ -20,4 +20,4 @@ install:
     - platformio lib -g install 252 555
 
 script:
-    - platformio ci --board=esp8266
+    - platformio ci --board=esp01_1m
