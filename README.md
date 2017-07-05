@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kylegordon/homie-sht30.svg?branch=master)](https://travis-ci.org/kylegordon/homie-sht30)
+
 # homie-sht30
 
 A simple ESP8266 Arduino sketch that reads the temperature from a lone SHT30 sensor, and publishes it to an MQTT broker.
