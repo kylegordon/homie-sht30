@@ -4,7 +4,7 @@
 SHT3X sht30(0x45);
 
 #define FW_NAME "homie-sht30"
-#define FW_VERSION "0.1.1"
+#define FW_VERSION "2.1.1"
 
 /* Magic sequence for Autodetectable Binary Upload */
 const char *__FLAGGED_FW_NAME = "\xbf\x84\xe4\x13\x54" FW_NAME "\x93\x44\x6b\xa7\x75";
@@ -37,28 +37,24 @@ void loopHandler() {
                 Serial.print(humidity);
                 Serial.println(" %");
 
-
-                if (Homie.setNodeProperty(temperatureNode, "degrees", String(temperature), true)) {
+                if (temperatureNode.setProperty("degrees").send(String(temperature))) {
                             last_temp_sent = millis();
                 }
-                Homie.setNodeProperty(humidityNode, "percent", String(humidity), true);
+                //Homie.setNodeProperty(humidityNode, "percent", String(humidity), true);
+                humidityNode.setProperty("percent").send(String(humidity));
                 delay(1000);
         }
 
 }
 
 void setupHandler() {
-        Homie.setNodeProperty(temperatureNode, "unit", "c", true);
-        Homie.setNodeProperty(humidityNode, "unit", "%", true);
+        temperatureNode.setProperty("unit").send("C");
+        humidityNode.setProperty("unit").send("%");
 }
 
 void setup() {
 
-
-        Homie.setFirmware(FW_NAME, FW_VERSION);
-
-        Homie.registerNode(temperatureNode);
-        Homie.registerNode(humidityNode);
+        Homie_setFirmware(FW_NAME, FW_VERSION);
 
         Homie.setSetupFunction(setupHandler);
         Homie.setLoopFunction(loopHandler);
