@@ -1,5 +1,6 @@
 #include <Homie.h>
 #include "WEMOS_SHT3X.h"
+#include <Arduino.h>
 
 SHT3X sht30(0x45);
 
